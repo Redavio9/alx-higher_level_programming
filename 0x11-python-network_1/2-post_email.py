@@ -1,15 +1,18 @@
 #!/usr/bin/python3
-"""  sends a POST request to the passed URL with the email as a parameter,"""
+"""Sends a POST request to a given URL with a given email.
+Usage: ./2-post_email.py <URL> <email>
+  - Displays the body of the response.
+"""
+import sys
+import urllib.parse
+import urllib.request
 
-from urllib.request import urlopen, Request
-from sys import argv
 
 if __name__ == "__main__":
-    url = argv[1]
-    val = {"email": argv[2]}
-    email = urlencode(val).encode("ascii")
+    url = sys.argv[1]
+    value = {"email": sys.argv[2]}
+    data = urllib.parse.urlencode(value).encode("ascii")
 
-    req = Request(url, email)
-    with urlopen(req) as response:
-        body = response.read().decode('utf-8')
-        print(body)
+    request = urllib.request.Request(url, data)
+    with urllib.request.urlopen(request) as response:
+        print(response.read().decode("utf-8"))
